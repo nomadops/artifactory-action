@@ -1,6 +1,6 @@
 # GitHub Action for jFrog Artifactory's CLI
 
-[![CI](https://github.com/nomadops/artifactory-action/actions/workflows/ci.yaml/badge.svg)](https://github.com/nomadops/artifactory-action/actions/workflows/ci.yaml)
+[![CI](https://github.com/nomadops/artifactory-action/actions/workflows/ci.yml/badge.svg)](https://github.com/nomadops/artifactory-action/actions/workflows/ci.yml)
 
 A wrapper to run jFrog CLI commands with Artifactory. This is a fork of [action-jfrog-cli](https://github.com/advancedcsg-open/action-jfrog-cli) (Thank you!!) updated to the latest version and cli syntax of jfrog. It adds support for deploying go artifacts, and adds some logic to allow for repeat use of the action within a single job.
 

@@ -30,4 +30,4 @@ branding:
   color: 'green'
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/nomadops/artifactory-action:v0.0.1'
+  image: 'docker://ghcr.io/nomadops/artifactory-action:v0.0.3'

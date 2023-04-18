@@ -1,6 +1,6 @@
 FROM alpine:3.17.3 as base
 
-LABEL version="0.0.1"
+LABEL version="0.0.3"
 LABEL repository="https://github.com/nomadops/artifactory-action"
 LABEL homepage="https://github.com/nomadops/artifactory-action"
 LABEL maintainer="nomadops"
