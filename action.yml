@@ -1,0 +1,33 @@
+name: 'jFrog Artifactory CLI action'
+author: 'nomadops, llc'
+description: 'Use the jFrog Artifactory CLI with GitHub Actions'
+inputs:
+  url:
+    description: 'URL of hosted Artifactory instance'
+    required: true
+  credentials type:
+    description: 'Type of authentication to use. Must be one of username, apikey or accesstoken. Defaults to apikey'
+    required: true
+    default: apikey
+  user:
+    description: 'Username for Artifactory. Must be supplied when credentials type is username'
+    required: false
+  password:
+    description: 'Password for Artifactory. Must be supplied when credentials type is username'
+    required: false
+  apikey:
+    description: 'Artifactory API Key. Must be supplied when credentials type is apikey'
+    required: false
+  access token:
+    description: 'Artifactory access token. Must be supplied when credentials type is accesstoken'
+    required: false
+  working directory:
+    description: 'Specify a working directory for the command to run in.'
+    required: false
+    default: .
+branding:
+  icon: 'package'
+  color: 'green'
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/nomadops/artifactory-action:v0.0.1'

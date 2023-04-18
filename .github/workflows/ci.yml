@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main # Or the branch you want to trigger the action on
+      # Sample GitHub Actions workflow to deploy and retrieeve a go package to Artifactory
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Bump version and push tag
+        if: success()
+        uses: anothrNick/github-tag-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          INITIAL_VERSION: v0.0.1
+          VERBOSE: true
+          DEFAULT_BUMP: patch
+        id: tag_version
+
+      - name: Create a GitHub release
+        if: success()
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+
+      - name: Log in to GitHub Container Registry
+        if: success()
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        if: success()
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/jfrog-cli-action:${{ steps.tag_version.outputs.new_tag }}
